@@ -88,7 +88,6 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
         </div>
 
         <div className="flex items-center space-x-1 sm:space-x-2">
-          
           <button className="rounded-full p-1 text-gray-500 hover:bg-gray-100 hidden sm:block">
             <Fullscreen className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
@@ -98,7 +97,6 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
               3
             </span>
           </button>
-          
 
           <div className="relative ml-1 sm:ml-3" ref={profileMenuRef}>
             <button
@@ -107,18 +105,43 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
               aria-expanded={profileMenuOpen}
               aria-haspopup="true"
             >
-              <img className="h-8 w-8 rounded-full" src="/placeholder.svg?height=32&width=32" alt="User avatar" />
+              <img
+                className="h-8 w-8 rounded-full"
+                src="/placeholder.svg?height=32&width=32"
+                alt="User avatar"
+              />
               <div className="ml-2 hidden md:flex md:items-center">
-                <span className="text-sm font-medium text-gray-700">JWT User</span>
-                <ChevronDown className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${profileMenuOpen ? "rotate-180" : ""}`} />
+                <span className="text-sm font-medium text-gray-700">
+                  JWT User
+                </span>
+                <ChevronDown
+                  className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${
+                    profileMenuOpen ? "rotate-180" : ""
+                  }`}
+                />
               </div>
             </button>
 
             {profileMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Your Profile</a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Settings</a>
-                <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Sign out</a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Your Profile
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Settings
+                </a>
+                <a
+                  href="#"
+                  className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                >
+                  Sign out
+                </a>
               </div>
             )}
           </div>
@@ -163,28 +186,53 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
           <div className="p-4">
             <div className="mb-6">
               <div className="flex items-center">
-                <img className="h-12 w-12 rounded-full" src="/placeholder.svg?height=48&width=48" alt="User avatar" />
+                <img
+                  className="h-12 w-12 rounded-full"
+                  src="/placeholder.svg?height=48&width=48"
+                  alt="User avatar"
+                />
                 <div className="ml-3">
-                  <p className="text-base font-medium text-gray-700">JWT User</p>
+                  <p className="text-base font-medium text-gray-700">
+                    JWT User
+                  </p>
                   <p className="text-sm text-gray-500">UI/UX Designer</p>
                 </div>
               </div>
             </div>
             <nav className="space-y-1">
-              <a href="#" className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">
-                <User className="mr-3 h-6 w-6 text-gray-500" />Your Profile
+              <a
+                href="#"
+                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+              >
+                <User className="mr-3 h-6 w-6 text-gray-500" />
+                Your Profile
               </a>
-              <a href="#" className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">
-                <Settings className="mr-3 h-6 w-6 text-gray-500" />Settings
+              <a
+                href="#"
+                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+              >
+                <Settings className="mr-3 h-6 w-6 text-gray-500" />
+                Settings
               </a>
-              <a href="#" className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">
-                <Bell className="mr-3 h-6 w-6 text-gray-500" />Notifications
+              <a
+                href="#"
+                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+              >
+                <Bell className="mr-3 h-6 w-6 text-gray-500" />
+                Notifications
               </a>
-              <a href="#" className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100">
-                <Mail className="mr-3 h-6 w-6 text-gray-500" />Messages
+              <a
+                href="#"
+                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+              >
+                <Mail className="mr-3 h-6 w-6 text-gray-500" />
+                Messages
               </a>
               <div className="pt-4 mt-4 border-t border-gray-200">
-                <a href="#" className="flex items-center rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-100">
+                <a
+                  href="#"
+                  className="flex items-center rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-100"
+                >
                   Sign out
                 </a>
               </div>
