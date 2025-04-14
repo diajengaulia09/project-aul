@@ -22,11 +22,7 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => (
       aria-expanded={isOpen}
       aria-haspopup="true"
     >
-      <img
-        className="h-8 w-8 rounded-full"
-        src="/placeholder.svg?height=32&width=32"
-        alt="User avatar"
-      />
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       <div className="ml-2 hidden md:flex md:items-center">
         <span className="text-sm font-medium text-gray-700">JWT User</span>
         <ChevronDown
@@ -152,7 +148,11 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             </button>
 
             {ellipsisMenuOpen && (
-              <div className="absolute right-0 mt-2 origin-top-right rounded-md flex bg-white p-2 gap-3 shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+              <div
+              className="absolute right-0 mx-2 mt-2 origin-top-right rounded-md flex justify-between bg-white p-2 gap-3 shadow-lg ring-1 ring-black ring-opacity-5 z-50"
+              style={{ width: "calc(100vw - 2rem)" }} // contoh: 100% layar dikurangi margin horizontal
+            >
+            
                 <SearchInput inputRef={searchInputRef} />
                 <ProfileMenu
                   isOpen={profileMenuOpen}
