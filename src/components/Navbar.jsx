@@ -100,7 +100,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
           </button>
           
 
-          <div className="relative ml-1 sm:ml-3" ref={profileMenuRef}>
+          <div className="relative ml-1 sm:ml-3 block lg:hidden" ref={profileMenuRef}>
             <button
               className="flex items-center rounded-full text-sm focus:outline-none"
               onClick={() => setProfileMenuOpen(!profileMenuOpen)}
