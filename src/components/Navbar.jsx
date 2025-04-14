@@ -149,7 +149,7 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
 
         {/* Right Icons */}
         <div className="flex items-center space-x-1 sm:space-x-2">
-          <button className="rounded-full p-1 text-gray-500 hover:bg-gray-100 hidden sm:block">
+          <button className="rounded-full p-1 text-gray-500 hover:bg-gray-100">
             <Fullscreen className="h-5 w-5 sm:h-6 sm:w-6" />
           </button>
           <button className="relative rounded-full p-1 text-gray-500 hover:bg-gray-100">
@@ -159,31 +159,15 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             </span>
           </button>
 
-          <div
-            className="relative ml-1 sm:ml-3 block lg:hidden"
-            ref={profileMenuRef}
-          >
+          {/* Ellipsis for small screens */}
+          <div className="relative block md:hidden" ref={ellipsisMenuRef}>
             <button
               className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
               onClick={() => setEllipsisMenuOpen(!ellipsisMenuOpen)}
               aria-expanded={ellipsisMenuOpen}
               aria-haspopup="true"
             >
-              <img
-                className="h-8 w-8 rounded-full"
-                src="/placeholder.svg?height=32&width=32"
-                alt="User avatar"
-              />
-              <div className="ml-2 hidden md:flex md:items-center">
-                <span className="text-sm font-medium text-gray-700">
-                  JWT User
-                </span>
-                <ChevronDown
-                  className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${
-                    profileMenuOpen ? "rotate-180" : ""
-                  }`}
-                />
-              </div>
+              <EllipsisVertical className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
 
             {ellipsisMenuOpen && (
@@ -222,50 +206,33 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             </button>
           </div>
           <div className="p-4">
-            <div className="mb-6">
-              <div className="flex items-center">
-                <img
-                  className="h-12 w-12 rounded-full"
-                  src="/placeholder.svg?height=48&width=48"
-                  alt="User avatar"
-                />
-                <div className="ml-3">
-                  <p className="text-base font-medium text-gray-700">
-                    JWT User
-                  </p>
-                  <p className="text-sm text-gray-500">UI/UX Designer</p>
-                </div>
+            <div className="mb-6 flex items-center">
+              <img
+                className="h-12 w-12 rounded-full"
+                src="/placeholder.svg?height=48&width=48"
+                alt="User avatar"
+              />
+              <div className="ml-3">
+                <p className="text-base font-medium text-gray-700">JWT User</p>
+                <p className="text-sm text-gray-500">UI/UX Designer</p>
               </div>
             </div>
             <nav className="space-y-1">
-              <a
-                href="#"
-                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
-              >
-                <User className="mr-3 h-6 w-6 text-gray-500" />
-                Your Profile
-              </a>
-              <a
-                href="#"
-                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
-              >
-                <Settings className="mr-3 h-6 w-6 text-gray-500" />
-                Settings
-              </a>
-              <a
-                href="#"
-                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
-              >
-                <Bell className="mr-3 h-6 w-6 text-gray-500" />
-                Notifications
-              </a>
-              <a
-                href="#"
-                className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
-              >
-                <Mail className="mr-3 h-6 w-6 text-gray-500" />
-                Messages
-              </a>
+              {[
+                { label: "Your Profile", icon: User },
+                { label: "Settings", icon: Settings },
+                { label: "Notifications", icon: Bell },
+                { label: "Messages", icon: Mail },
+              ].map(({ label, icon: Icon }) => (
+                <a
+                  key={label}
+                  href="#"
+                  className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
+                >
+                  <Icon className="mr-3 h-6 w-6 text-gray-500" />
+                  {label}
+                </a>
+              ))}
               <div className="pt-4 mt-4 border-t border-gray-200">
                 <a
                   href="#"
