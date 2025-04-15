@@ -11,66 +11,93 @@ import {
   X,
   User,
   EllipsisVertical,
+  Edit,
+  Outdent,
+  LogOut,
+  HelpCircle,
+  History,
 } from "lucide-react";
 import { Input } from "./ui/input";
 
-const ProfileMenu = ({ isOpen, onToggle, menuRef }) => (
-  <div className="relative" ref={menuRef}>
-    <button
-      className="flex items-center rounded-full text-sm focus:outline-none"
-      onClick={onToggle}
-      aria-expanded={isOpen}
-      aria-haspopup="true"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        class="lucide lucide-user-icon lucide-user"
-      >
-        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
-      <div className="ml-2 hidden md:flex md:items-center">
-        <span className="text-sm font-medium text-gray-700">JWT User</span>
-        <ChevronDown
-          className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${
-            isOpen ? "rotate-180" : ""
-          }`}
-        />
-      </div>
-    </button>
+const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
+  const [activeTab, setActiveTab] = useState("profile")
 
-    {isOpen && (
-      <div className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-        <a
-          href="#"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-        >
-          Your Profile
-        </a>
-        <a
-          href="#"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-        >
-          Settings
-        </a>
-        <a
-          href="#"
-          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-        >
-          Sign out
-        </a>
-      </div>
-    )}
-  </div>
-);
+  return (
+    <div className="relative" ref={menuRef}>
+      <button
+        className="flex items-center rounded-full text-sm focus:outline-none"
+        onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-haspopup="true"
+      >
+        <User className="h-5 w-5 sm:h-6 sm:w-6" />
+        <div className="ml-2 hidden md:flex md:items-center">
+          <span className="text-sm font-medium text-gray-700">JWT User</span>
+          <ChevronDown className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+        </div>
+      </button>
+
+      {isOpen && (
+        <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+          <div className="flex border-b">
+            <button
+              onClick={() => setActiveTab("profile")}
+              className={`flex-1 px-4 py-2 text-sm font-medium ${
+                activeTab === "profile" ? "border-b-2 border-primary text-primary" : "text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <User className="mr-2 h-4 w-4 inline" />
+              Profile
+            </button>
+            <button
+              onClick={() => setActiveTab("settings")}
+              className={`flex-1 px-4 py-2 text-sm font-medium ${
+                activeTab === "settings" ? "border-b-2 border-primary text-primary" : "text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <Settings className="mr-2 h-4 w-4 inline" />
+              Settings
+            </button>
+          </div>
+
+          {activeTab === "profile" && (
+            <div className="py-1">
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <Edit className="mr-2 h-4 w-4 inline" />
+                Edit Profile
+              </a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <User className="mr-2 h-4 w-4 inline" />
+                View Profile
+              </a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <LogOut className="mr-2 h-4 w-4 inline" />
+                Sign out
+              </a>
+            </div>
+          )}
+
+          {activeTab === "settings" && (
+            <div className="py-1">
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <HelpCircle className="mr-2 h-4 w-4 inline" />
+                Support
+              </a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <User className="mr-2 h-4 w-4 inline" />
+                Account Settings
+              </a>
+              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                <History className="mr-2 h-4 w-4 inline" />
+                History
+              </a>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
 
 const SearchInput = ({ inputRef }) => (
   <div className="relative flex items-center">

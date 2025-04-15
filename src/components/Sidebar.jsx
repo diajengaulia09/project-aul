@@ -13,7 +13,7 @@ import {
   X,
 } from "lucide-react";
 
-function Sidebar({ open, setOpen }) {
+export default function Sidebar({ open, setOpen }) {
   const [menuItems, setMenuItems] = useState([
     {
       title: "Sample Page",
