@@ -21,7 +21,7 @@ import {
 import { Input } from "./ui/input";
 
 const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
-  const [activeTab, setActiveTab] = useState("profile")
+  const [activeTab, setActiveTab] = useState("profile");
 
   return (
     <div className="relative" ref={menuRef}>
@@ -34,24 +34,33 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
         <User className="h-5 w-5 sm:h-6 sm:w-6" />
         <div className="ml-2 hidden md:flex md:items-center">
           <span className="text-sm font-medium text-gray-700">JWT User</span>
-          <ChevronDown className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`} />
+          <ChevronDown
+            className={`ml-1 h-4 w-4 text-gray-500 transition-transform ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
         </div>
       </button>
 
       {isOpen && (
-        <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-          <div className="flex items-center px-4 py-3 border-b">
-          <User className="h-5 w-5 sm:h-6 sm:w-6" />
+        <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg focus:outline-none z-50">
+          <div className="flex items-center justify-between px-4 py-3 border-b">
+            <User className="h-5 w-5 sm:h-6 sm:w-6" />
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">JWT User</p>
               <p className="text-xs text-gray-500">UI/UX Designer</p>
             </div>
+            
+              <LogOut />
+
           </div>
           <div className="flex border-b">
             <button
               onClick={() => setActiveTab("profile")}
               className={`flex-1 px-4 py-2 text-sm font-medium ${
-                activeTab === "profile" ? "border-b-2 border-primary text-primary" : "text-gray-700 hover:bg-gray-50"
+                activeTab === "profile"
+                  ? " text-primary"
+                  : "text-gray-700"
               }`}
             >
               <User className="mr-2 h-4 w-4 inline" />
@@ -60,7 +69,9 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
             <button
               onClick={() => setActiveTab("settings")}
               className={`flex-1 px-4 py-2 text-sm font-medium ${
-                activeTab === "settings" ? "border-b-2 border-primary text-primary" : "text-gray-700 hover:bg-gray-50"
+                activeTab === "settings"
+                  ? " text-primary"
+                  : "text-gray-700"
               }`}
             >
               <Settings className="mr-2 h-4 w-4 inline" />
@@ -70,15 +81,24 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
 
           {activeTab === "profile" && (
             <div className="py-1">
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
                 <Edit className="mr-2 h-4 w-4 inline" />
                 Edit Profile
               </a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
                 <User className="mr-2 h-4 w-4 inline" />
                 View Profile
               </a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
                 <LogOut className="mr-2 h-4 w-4 inline" />
                 Sign out
               </a>
@@ -87,15 +107,24 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
 
           {activeTab === "settings" && (
             <div className="py-1">
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
                 <HelpCircle className="mr-2 h-4 w-4 inline" />
                 Support
               </a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
                 <User className="mr-2 h-4 w-4 inline" />
                 Account Settings
               </a>
-              <a href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+              <a
+                href="#"
+                className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+              >
                 <History className="mr-2 h-4 w-4 inline" />
                 History
               </a>
@@ -104,8 +133,8 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
         </div>
       )}
     </div>
-  )
-}
+  );
+};
 
 const SearchInput = ({ inputRef }) => (
   <div className="relative flex items-center">
@@ -139,13 +168,22 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
+      if (
+        profileMenuRef.current &&
+        !profileMenuRef.current.contains(event.target)
+      ) {
         setProfileMenuOpen(false);
       }
-      if (ellipsisMenuRef.current && !ellipsisMenuRef.current.contains(event.target)) {
+      if (
+        ellipsisMenuRef.current &&
+        !ellipsisMenuRef.current.contains(event.target)
+      ) {
         setEllipsisMenuOpen(false);
       }
-      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target)) {
+      if (
+        languageMenuRef.current &&
+        !languageMenuRef.current.contains(event.target)
+      ) {
         setLanguageMenuOpen(false);
       }
     };
@@ -157,10 +195,16 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
     <header className="sticky top-0 z-30 border-b border-gray-200 bg-white">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center">
-          <button className="mr-2 rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <button
+            className="mr-2 rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
             <MenuIcon className="h-6 w-6" />
           </button>
-          <button className="mr-4 hidden rounded-md p-2 text-gray-500 hover:bg-gray-100 md:block" onClick={() => setSidebarOpen(!sidebarOpen)}>
+          <button
+            className="mr-4 hidden rounded-md p-2 text-gray-500 hover:bg-gray-100 md:block"
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+          >
             <PanelLeft className="h-5 w-5" />
           </button>
           <div className="hidden md:block">
@@ -179,7 +223,13 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             {languageMenuOpen && (
               <div className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
                 <ul className="py-1 text-sm text-gray-700">
-                  {["English", "Indonesia", "Chinese", "Japanese", "Arabic"].map((lang) => (
+                  {[
+                    "English",
+                    "Indonesia",
+                    "Chinese",
+                    "Japanese",
+                    "Arabic",
+                  ].map((lang) => (
                     <li key={lang}>
                       <button
                         onClick={() => {
