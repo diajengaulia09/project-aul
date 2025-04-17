@@ -16,6 +16,7 @@ import {
   LogOut,
   HelpCircle,
   History,
+  Languages,
 } from "lucide-react";
 import { Input } from "./ui/input";
 
@@ -39,6 +40,13 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
 
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+          <div className="flex items-center px-4 py-3 border-b">
+          <User className="h-5 w-5 sm:h-6 sm:w-6" />
+            <div className="ml-3">
+              <p className="text-sm font-medium text-gray-900">JWT User</p>
+              <p className="text-xs text-gray-500">UI/UX Designer</p>
+            </div>
+          </div>
           <div className="flex border-b">
             <button
               onClick={() => setActiveTab("profile")}
@@ -115,11 +123,13 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [ellipsisMenuOpen, setEllipsisMenuOpen] = useState(false);
 
   const searchInputRef = useRef(null);
   const profileMenuRef = useRef(null);
   const ellipsisMenuRef = useRef(null);
+  const languageMenuRef = useRef(null);
 
   useEffect(() => {
     if (mobileSearchOpen && searchInputRef.current) {
@@ -129,17 +139,14 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (
-        profileMenuRef.current &&
-        !profileMenuRef.current.contains(event.target)
-      ) {
+      if (profileMenuRef.current && !profileMenuRef.current.contains(event.target)) {
         setProfileMenuOpen(false);
       }
-      if (
-        ellipsisMenuRef.current &&
-        !ellipsisMenuRef.current.contains(event.target)
-      ) {
+      if (ellipsisMenuRef.current && !ellipsisMenuRef.current.contains(event.target)) {
         setEllipsisMenuOpen(false);
+      }
+      if (languageMenuRef.current && !languageMenuRef.current.contains(event.target)) {
+        setLanguageMenuOpen(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -150,35 +157,46 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
     <header className="sticky top-0 z-30 border-b border-gray-200 bg-white">
       <div className="flex h-16 items-center justify-between px-4">
         <div className="flex items-center">
-          {/* Mobile Sidebar Toggle */}
-          <button
-            className="mr-2 rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label="Toggle sidebar"
-          >
+          <button className="mr-2 rounded-md p-2 text-gray-500 hover:bg-gray-100 md:hidden" onClick={() => setSidebarOpen(!sidebarOpen)}>
             <MenuIcon className="h-6 w-6" />
           </button>
-
-          {/* Desktop Sidebar Toggle */}
-          <button
-            className="mr-4 hidden rounded-md p-2 text-gray-500 hover:bg-gray-100 md:block"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            aria-label={sidebarOpen ? "Collapse sidebar" : "Expand sidebar"}
-          >
+          <button className="mr-4 hidden rounded-md p-2 text-gray-500 hover:bg-gray-100 md:block" onClick={() => setSidebarOpen(!sidebarOpen)}>
             <PanelLeft className="h-5 w-5" />
           </button>
-
-          {/* Desktop Search */}
           <div className="hidden md:block">
             <SearchInput />
           </div>
         </div>
 
-        {/* Right Icons */}
         <div className="flex items-center space-x-1 sm:space-x-2">
-          <button className="rounded-full p-1 text-gray-500 hover:bg-gray-100">
-            <Fullscreen className="h-5 w-5 sm:h-6 sm:w-6" />
-          </button>
+          <div className="relative" ref={languageMenuRef}>
+            <button
+              className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
+              onClick={() => setLanguageMenuOpen(!languageMenuOpen)}
+            >
+              <Languages className="h-5 w-5 sm:h-6 sm:w-6" />
+            </button>
+            {languageMenuOpen && (
+              <div className="absolute right-0 mt-2 w-40 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 z-50">
+                <ul className="py-1 text-sm text-gray-700">
+                  {["English", "Indonesia", "Chinese", "Japanese", "Arabic"].map((lang) => (
+                    <li key={lang}>
+                      <button
+                        onClick={() => {
+                          console.log("Selected language:", lang);
+                          setLanguageMenuOpen(false);
+                        }}
+                        className="w-full px-4 py-2 text-left hover:bg-gray-100"
+                      >
+                        {lang}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
           <button className="relative rounded-full p-1 text-gray-500 hover:bg-gray-100">
             <Mail className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="absolute right-0 top-0 flex h-3 w-3 sm:h-4 sm:w-4 items-center justify-center rounded-full bg-red-500 text-[10px] sm:text-xs text-white">
@@ -186,17 +204,13 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             </span>
           </button>
 
-          {/* Ellipsis for small screens */}
           <div className="relative block md:hidden" ref={ellipsisMenuRef}>
             <button
               className="rounded-full p-1 text-gray-500 hover:bg-gray-100"
               onClick={() => setEllipsisMenuOpen(!ellipsisMenuOpen)}
-              aria-expanded={ellipsisMenuOpen}
-              aria-haspopup="true"
             >
               <EllipsisVertical className="h-5 w-5 sm:h-6 sm:w-6" />
             </button>
-
             {ellipsisMenuOpen && (
               <div className="absolute right-0 mt-2 origin-top-right rounded-md flex bg-white p-2 gap-3 shadow-lg ring-1 ring-black ring-opacity-5 z-50">
                 <SearchInput inputRef={searchInputRef} />
@@ -209,7 +223,6 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
             )}
           </div>
 
-          {/* Profile dropdown desktop */}
           <div className="hidden lg:block">
             <ProfileMenu
               isOpen={profileMenuOpen}
@@ -219,59 +232,6 @@ export default function Navbar({ sidebarOpen, setSidebarOpen }) {
           </div>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-white">
-          <div className="flex h-16 items-center justify-between border-b border-gray-200 px-4">
-            <span className="text-lg font-semibold">Menu</span>
-            <button
-              className="rounded-md p-2 text-gray-500 hover:bg-gray-100"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              <X className="h-6 w-6" />
-            </button>
-          </div>
-          <div className="p-4">
-            <div className="mb-6 flex items-center">
-              <img
-                className="h-12 w-12 rounded-full"
-                src="/placeholder.svg?height=48&width=48"
-                alt="User avatar"
-              />
-              <div className="ml-3">
-                <p className="text-base font-medium text-gray-700">JWT User</p>
-                <p className="text-sm text-gray-500">UI/UX Designer</p>
-              </div>
-            </div>
-            <nav className="space-y-1">
-              {[
-                { label: "Your Profile", icon: User },
-                { label: "Settings", icon: Settings },
-                { label: "Notifications", icon: Bell },
-                { label: "Messages", icon: Mail },
-              ].map(({ label, icon: Icon }) => (
-                <a
-                  key={label}
-                  href="#"
-                  className="flex items-center rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-100"
-                >
-                  <Icon className="mr-3 h-6 w-6 text-gray-500" />
-                  {label}
-                </a>
-              ))}
-              <div className="pt-4 mt-4 border-t border-gray-200">
-                <a
-                  href="#"
-                  className="flex items-center rounded-md px-3 py-2 text-base font-medium text-red-600 hover:bg-gray-100"
-                >
-                  Sign out
-                </a>
-              </div>
-            </nav>
-          </div>
-        </div>
-      )}
     </header>
   );
 }
