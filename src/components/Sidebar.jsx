@@ -1,16 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
   ChevronDown,
   ChevronRight,
-  CircleDot,
   Contact,
   CreditCard,
   Home,
-  Lock,
-  Menu,
-  Settings,
   X,
+  User,
 } from "lucide-react";
 
 export default function Sidebar({ open, setOpen }) {
@@ -32,57 +29,69 @@ export default function Sidebar({ open, setOpen }) {
     },
   ]);
 
-  // Close sidebar on small screens when clicking outside
+  const sidebarRef = useRef(null);
+  const profileRef = useRef(null);
+  const [showProfile, setShowProfile] = useState(false);
+
+  const toggleSubmenu = (index) => {
+    setMenuItems((prev) =>
+      prev.map((item, i) =>
+        i === index ? { ...item, expanded: !item.expanded } : item
+      )
+    );
+  };
+
+  const handleClickOutside = (e) => {
+    if (
+      window.innerWidth < 768 &&
+      open &&
+      !sidebarRef.current?.contains(e.target) &&
+      !profileRef.current?.contains(e.target)
+    ) {
+      setOpen(false);
+      setShowProfile(false);
+    } else if (
+      showProfile &&
+      !profileRef.current?.contains(e.target) &&
+      !e.target.closest('[data-user-button="true"]')
+    ) {
+      setShowProfile(false);
+    }
+  };
+
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 768) {
         setOpen(false);
-      }
-    };
-
-    const handleClickOutside = (e) => {
-      const target = e.target;
-      if (
-        window.innerWidth < 768 &&
-        open &&
-        !target.closest('[data-sidebar="true"]')
-      ) {
-        setOpen(false);
+        setShowProfile(false);
       }
     };
 
     window.addEventListener("resize", handleResize);
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [open, setOpen]);
-
-  const toggleSubmenu = (index) => {
-    const updatedMenuItems = [...menuItems];
-    updatedMenuItems[index].expanded = !updatedMenuItems[index].expanded;
-    setMenuItems(updatedMenuItems);
-  };
+  }, [open, showProfile]);
 
   return (
     <>
-      {/* Mobile overlay */}
       {open && (
         <div
           className="fixed inset-0 z-40 bg-black bg-opacity-50 transition-opacity md:hidden"
-          onClick={() => setOpen(false)}
+          onClick={() => {
+            setOpen(false);
+            setShowProfile(false);
+          }}
         />
       )}
 
-      {/* Sidebar */}
       <div
+        ref={sidebarRef}
         data-sidebar="true"
         className={`${
-          open
-            ? "translate-x-0 w-64"
-            : "-translate-x-full md:translate-x-0 md:w-20"
+          open ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0 md:w-20"
         } fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-200 bg-white transition-all duration-300 ease-in-out md:relative`}
       >
         {/* Mobile close button */}
@@ -115,11 +124,11 @@ export default function Sidebar({ open, setOpen }) {
 
         {/* Menu Items */}
         <div className="flex-1 overflow-y-auto py-4">
-          <div className="mb-4 px-4">
-            {open && (
+          {open && (
+            <div className="mb-4 px-4">
               <div className="text-xs font-semibold text-gray-500">Pages</div>
-            )}
-          </div>
+            </div>
+          )}
           <nav className="space-y-1 px-2">
             {menuItems.map((item, index) => (
               <div key={index}>
@@ -183,32 +192,38 @@ export default function Sidebar({ open, setOpen }) {
         </div>
 
         {/* User Profile */}
-        <div className="border-t border-gray-200 p-4">
-          <div className={`flex items-center ${open? '': 'justify-center'}`}>
-            <div className="flex-shrink-0">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="lucide lucide-user-icon lucide-user"
-              >
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </div>
+        <div className="border-t border-gray-200 py-4 px-4">
+          <button
+            data-user-button="true"
+            onClick={() => setShowProfile(!showProfile)}
+            className={`flex w-full items-center ${open ? "" : "justify-center"}`}
+          >
+            <User className="h-5 w-5 text-gray-700" />
             {open && (
-              <div className="ml-3">
+              <div className="ml-3 text-left">
                 <p className="text-sm font-medium text-gray-700">JWT User</p>
                 <p className="text-xs text-gray-500">UI/UX Designer</p>
               </div>
             )}
-          </div>
+          </button>
+
+          {showProfile && (
+            <div
+              ref={profileRef}
+              className="absolute bottom-16 left-4 w-48 rounded-md border bg-white p-2 shadow-md flex flex-col gap-2 z-50"
+            >
+              
+              <button className="w-full text-left text-sm text-gray-700 hover:underline">
+                Profile
+              </button>
+              <button className="w-full text-left text-sm text-gray-700 hover:underline">
+                Logout
+              </button>
+              <button className="w-full text-left text-sm text-gray-700 hover:underline">
+                My Account
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </>
