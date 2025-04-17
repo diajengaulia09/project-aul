@@ -184,13 +184,8 @@ export default function Sidebar({ open, setOpen }) {
 
         {/* User Profile */}
         <div className="border-t border-gray-200 p-4">
-          <div className="flex items-center">
+          <div className={`flex items-center ${open? '': 'justify-center'}`}>
             <div className="flex-shrink-0">
-              <img
-                className="h-10 w-10 rounded-full"
-                src="/placeholder.svg"
-                alt="User avatar"
-              />
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
