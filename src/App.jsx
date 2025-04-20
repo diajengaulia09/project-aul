@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import Sidebar from "./components/Sidebar"
 import Navbar from "./components/Navbar"
+import EditProfile from "./components/EditProfile"
 
 function Dashboard() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
@@ -23,8 +24,8 @@ function Dashboard() {
       <Sidebar open={sidebarOpen} setOpen={setSidebarOpen} />
       <div className="flex flex-1 flex-col overflow-hidden">
         <Navbar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-        <main className="flex-1 overflow-auto p-4">
-          
+        <main className="flex-1 overflow-auto ">
+            <EditProfile></EditProfile>
         </main>
       </div>
     </div>
