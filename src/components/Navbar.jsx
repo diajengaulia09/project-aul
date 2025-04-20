@@ -45,10 +45,12 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
       {isOpen && (
         <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg focus:outline-none z-50">
           <div className="flex items-center justify-between px-4 py-3 border-b">
+            <div className="flex items-center">
             <User className="h-5 w-5 sm:h-6 sm:w-6" />
             <div className="ml-3">
               <p className="text-sm font-medium text-gray-900">JWT User</p>
               <p className="text-xs text-gray-500">UI/UX Designer</p>
+            </div>
             </div>
             
               <LogOut />
