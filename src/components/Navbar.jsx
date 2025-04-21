@@ -19,6 +19,7 @@ import {
   Languages,
 } from "lucide-react";
 import { Input } from "./ui/input";
+import { Link } from "react-router-dom";
 
 const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
   const [activeTab, setActiveTab] = useState("profile");
@@ -83,20 +84,20 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
 
           {activeTab === "profile" && (
             <div className="py-1">
-              <a
-                href="#"
+              <Link
+                to={"/profile/edit"}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 <Edit className="mr-2 h-4 w-4 inline" />
                 Edit Profile
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to={"/profile"}
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
               >
                 <User className="mr-2 h-4 w-4 inline" />
                 View Profile
-              </a>
+              </Link>
               <a
                 href="#"
                 className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
