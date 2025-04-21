@@ -61,55 +61,6 @@ export default function ProfilePage() {
 
         <Grid container spacing={4}>
           <Grid item size={{ xs: 12, md: 4 }}>
-            <Paper sx={{ p: 3, mb: 4, display: "flex", flexDirection: "column", alignItems: "center" }}>
-              <Box sx={{ position: "relative", mb: 2 }}>
-                <Avatar alt="Anshan H." src="/placeholder.svg?height=120&width=120" sx={{ width: 120, height: 120 }} />
-                <Chip
-                  label="Pro"
-                  color="primary"
-                  size="small"
-                  sx={{ position: "absolute", top: 0, right: -15 }}
-                />
-              </Box>
-              <Typography variant="h6" gutterBottom>
-                Anshan H.
-              </Typography>
-              <Typography variant="body2" color="text.secondary" gutterBottom>
-                Project Manager
-              </Typography>
-
-              <Box sx={{ display: "flex", justifyContent: "space-between", width: "100%", my: 3 }}>
-                {["86", "40", "4.5K"].map((val, i) => (
-                  <Box key={i} sx={{ textAlign: "center" }}>
-                    <Typography variant="h6">{val}</Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {i === 0 ? "Post" : i === 1 ? "Project" : "Members"}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-
-              <Box sx={{ width: "100%", mt: 2 }}>
-                {[{
-                  icon: <EmailIcon fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />,
-                  text: "anshan.dh81@gmail.com",
-                }, {
-                  icon: <PhoneIcon fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />,
-                  text: "(+1-876) 8654 239 581",
-                }, {
-                  icon: <LocationOnIcon fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />,
-                  text: "New York",
-                }, {
-                  icon: <LanguageIcon fontSize="small" sx={{ mr: 1, color: "text.secondary" }} />,
-                  text: <Link href="https://anshan.dh.url" underline="hover" variant="body2">https://anshan.dh.url</Link>,
-                }].map((item, idx) => (
-                  <Box key={idx} sx={{ display: "flex", alignItems: "center", mb: 1.5 }}>
-                    {item.icon}
-                    <Typography variant="body2">{item.text}</Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Paper>
 
             <Paper sx={{ p: 3 }}>
               <Typography variant="h6" gutterBottom>
