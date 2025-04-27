@@ -47,23 +47,20 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
         <div className="absolute right-0 mt-2 w-64 origin-top-right rounded-md bg-white shadow-lg focus:outline-none z-50">
           <div className="flex items-center justify-between px-4 py-3 border-b">
             <div className="flex items-center">
-            <User className="h-5 w-5 sm:h-6 sm:w-6" />
-            <div className="ml-3">
-              <p className="text-sm font-medium text-gray-900">JWT User</p>
-              <p className="text-xs text-gray-500">UI/UX Designer</p>
+              <User className="h-5 w-5 sm:h-6 sm:w-6" />
+              <div className="ml-3">
+                <p className="text-sm font-medium text-gray-900">JWT User</p>
+                <p className="text-xs text-gray-500">UI/UX Designer</p>
+              </div>
             </div>
-            </div>
-            
-              <LogOut />
 
+            <LogOut />
           </div>
           <div className="flex border-b">
             <button
               onClick={() => setActiveTab("profile")}
-              className={`flex-1 px-4 py-2 text-sm font-medium ${
-                activeTab === "profile"
-                  ? " text-primary"
-                  : "text-gray-700"
+              className={`flex-1 px-4 py-2 text-sm font-medium focus:outline-none focus:border-none ${
+                activeTab === "profile" ? "text-primary" : "text-gray-700"
               }`}
             >
               <User className="mr-2 h-4 w-4 inline" />
@@ -71,11 +68,10 @@ const ProfileMenu = ({ isOpen, onToggle, menuRef }) => {
             </button>
             <button
               onClick={() => setActiveTab("settings")}
-              className={`flex-1 px-4 py-2 text-sm font-medium ${
-                activeTab === "settings"
-                  ? " text-primary"
-                  : "text-gray-700"
+              className={`flex-1 px-4 py-2 text-sm font-medium focus:border-none${
+                activeTab === "settings" ? "text-primary" : "text-gray-700"
               }`}
+              style={{border:"none"}}
             >
               <Settings className="mr-2 h-4 w-4 inline" />
               Settings
