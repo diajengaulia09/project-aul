@@ -27,6 +27,16 @@ export default function Sidebar({ open, setOpen }) {
       icon: <CreditCard className="h-5 w-5" />,
       path: "/pricing",
     },
+    {
+      title: "Authentication",
+      icon: <User className="h-5 w-5" />,
+      submenu: true,
+      expanded: false,
+      submenuItems: [
+        { title: "Login", path: "/login" },
+        { title: "Register", path: "/register" },
+      ],
+    },
   ]);
 
   const sidebarRef = useRef(null);
@@ -91,7 +101,9 @@ export default function Sidebar({ open, setOpen }) {
         ref={sidebarRef}
         data-sidebar="true"
         className={`${
-          open ? "translate-x-0 w-64" : "-translate-x-full md:translate-x-0 md:w-20"
+          open
+            ? "translate-x-0 w-64"
+            : "-translate-x-full md:translate-x-0 md:w-20"
         } fixed inset-y-0 left-0 z-50 flex flex-col border-r border-gray-200 bg-white transition-all duration-300 ease-in-out md:relative`}
       >
         {/* Mobile close button */}
@@ -133,28 +145,46 @@ export default function Sidebar({ open, setOpen }) {
             {menuItems.map((item, index) => (
               <div key={index}>
                 {item.submenu ? (
-                  <button
-                    onClick={() => toggleSubmenu(index)}
-                    className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${
-                      open
-                        ? "text-gray-700 hover:bg-gray-100"
-                        : "justify-center text-gray-700 hover:bg-gray-100"
-                    }`}
-                    title={!open ? item.title : undefined}
-                  >
-                    <div className="flex items-center">
-                      <span className={`text-gray-500 ${open ? "mr-3" : ""}`}>
-                        {item.icon}
-                      </span>
-                      {open && <span>{item.title}</span>}
-                    </div>
-                    {open &&
-                      (item.expanded ? (
-                        <ChevronDown className="h-4 w-4 text-gray-500" />
-                      ) : (
-                        <ChevronRight className="h-4 w-4 text-gray-500" />
-                      ))}
-                  </button>
+                  <>
+                    <button
+                      onClick={() => toggleSubmenu(index)}
+                      className={`flex w-full items-center justify-between rounded-md px-3 py-2 text-sm font-medium ${
+                        open
+                          ? "text-gray-700 hover:bg-gray-100"
+                          : "justify-center text-gray-700 hover:bg-gray-100"
+                      }`}
+                      title={!open ? item.title : undefined}
+                      aria-expanded={item.expanded ? "true" : "false"}
+                    >
+                      <div className="flex items-center">
+                        <span className={`text-gray-500 ${open ? "mr-3" : ""}`}>
+                          {item.icon}
+                        </span>
+                        {open && <span>{item.title}</span>}
+                      </div>
+                      {open &&
+                        (item.expanded ? (
+                          <ChevronDown className="h-4 w-4 text-gray-500" />
+                        ) : (
+                          <ChevronRight className="h-4 w-4 text-gray-500" />
+                        ))}
+                    </button>
+
+                    {/* Submenu */}
+                    {item.expanded && open && (
+                      <div className="ml-8 mt-1 space-y-1">
+                        {item.submenuItems?.map((subItem, subIndex) => (
+                          <Link
+                            key={subIndex}
+                            to={subItem.path}
+                            className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
+                          >
+                            {subItem.title}
+                          </Link>
+                        ))}
+                      </div>
+                    )}
+                  </>
                 ) : (
                   <Link
                     to={item.path || "#"}
@@ -171,21 +201,6 @@ export default function Sidebar({ open, setOpen }) {
                     {open && <span>{item.title}</span>}
                   </Link>
                 )}
-
-                {/* Submenu */}
-                {item.submenu && item.expanded && open && (
-                  <div className="ml-8 mt-1 space-y-1">
-                    {item.submenuItems?.map((subItem, subIndex) => (
-                      <Link
-                        key={subIndex}
-                        to={subItem.path}
-                        className="block rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100"
-                      >
-                        {subItem.title}
-                      </Link>
-                    ))}
-                  </div>
-                )}
               </div>
             ))}
           </nav>
@@ -196,7 +211,9 @@ export default function Sidebar({ open, setOpen }) {
           <button
             data-user-button="true"
             onClick={() => setShowProfile(!showProfile)}
-            className={`flex w-full items-center ${open ? "" : "justify-center"}`}
+            className={`flex w-full items-center ${
+              open ? "" : "justify-center"
+            }`}
           >
             <User className="h-5 w-5 text-gray-700" />
             {open && (
@@ -212,7 +229,6 @@ export default function Sidebar({ open, setOpen }) {
               ref={profileRef}
               className="absolute bottom-16 left-4 w-48 rounded-md border bg-white p-2 shadow-md flex flex-col gap-2 z-50"
             >
-              
               <button className="w-full text-left text-sm text-gray-700 hover:underline">
                 Profile
               </button>
